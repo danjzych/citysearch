@@ -1,26 +1,37 @@
 import { useState, useRef, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import Results from "./Results"
 import CitySearch from "../api"
+import formatInputFromSearchParams from "../utils/formatInputFromSearchParams"
 import { City } from "../types"
 
 const Search = () => {
     const [searchInput, setSearchInput] = useState('')
+    const [searchParams, setSearchParams] = useSearchParams()
     const [cities, setCities] = useState<City[]>([])
     const inputRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.focus();
+        if (searchParams.has('city') || searchParams.has('state')) {
+            let formattedInput = formatInputFromSearchParams(searchParams)
+            setSearchInput(formattedInput)
         }
     }, [])
 
     useEffect(() => {
+        console.debug('searchInput effect')
         if (searchInput) {
             getCities()
         } else {
             setCities([])
         }
     }, [searchInput])
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [])
 
     const getCities = async () => {
         try {
@@ -32,7 +43,9 @@ const Search = () => {
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchInput(e.currentTarget.value)
+        setSearchInput(e.currentTarget.value);
+        //TODO: format query string from input
+        setSearchParams({q: e.currentTarget.value})
     }
 
     return (
