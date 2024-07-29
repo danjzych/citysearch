@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "dev:client": "cd ./client && npm run dev -- --open",
-    "dev:server": "cd ./server && npm run dev"
+    "dev:server": "cd ./server && npm run dev",
+    "test:client": "cd ./client && npm run test"
   },
   "workspaces": [
     "client",

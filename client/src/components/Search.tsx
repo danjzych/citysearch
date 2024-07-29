@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react"
 import { useSearchParams } from "react-router-dom"
 import Results from "./Results"
 import CitySearch from "../api"
-import formatInputFromSearchParams from "../utils/formatInputFromSearchParams"
+import formatSearchParams from "../utils/formatSearchParams"
 import { City } from "../types"
 
 const Search = () => {
@@ -12,14 +12,11 @@ const Search = () => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
-        if (searchParams.has('city') || searchParams.has('state')) {
-            let formattedInput = formatInputFromSearchParams(searchParams)
-            setSearchInput(formattedInput)
-        }
+        const query = searchParams.get('address');
+        if (query) setSearchInput(query);
     }, [])
 
     useEffect(() => {
-        console.debug('searchInput effect')
         if (searchInput) {
             getCities()
         } else {
@@ -35,17 +32,16 @@ const Search = () => {
 
     const getCities = async () => {
         try {
-            const searchResult = await CitySearch.getCities()
-            setCities(searchResult)
+            const searchResult = await CitySearch.getCities();
+            setCities(searchResult);
         } catch (e) {
-            console.error(e)
+            console.error(e);
         }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchInput(e.currentTarget.value);
-        //TODO: format query string from input
-        setSearchParams({q: e.currentTarget.value})
+        setSearchParams(formatSearchParams(e.currentTarget.value))
     }
 
     return (
