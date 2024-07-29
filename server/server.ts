@@ -2,11 +2,12 @@ import app from "./app.js";
 import getAllCities from "./utils/getAllCities.js";
 import { City } from "./types.js";
 
-let allCities: City[];
+export const allCities: City[] = [];
 
 const startServer = async () => {
   try {
-    allCities = await getAllCities();
+    const data = await getAllCities();
+    allCities.push(...data);
     console.log("Successfully loaded all cities from engineering.rentable.co");
   } catch (e) {
     console.error(e);

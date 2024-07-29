@@ -1,10 +1,18 @@
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import Nav from "./components/Nav";
+import Landing from "./components/Landing"
+import Search from "./components/Search"
 
-function App() {
+const App = () => {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello</h1>
-    </>
+    <BrowserRouter>
+      <Nav />
+        <Routes>
+          <Route path="/cities" element={<Search />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+    </BrowserRouter>
   )
 }
 
