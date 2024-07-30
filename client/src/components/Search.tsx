@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Results from "./Results";
+import PageSelect from "./PageSelect";
 import CitySearch from "../api";
 import formatSearchParams from "../utils/formatSearchParams";
 import { City } from "../types";
@@ -14,6 +15,7 @@ const Search = () => {
   const [cities, setCities] = useState<City[]>([]);
   const [page, setPage] = useState(1);
   const [numPages, setNumPages] = useState(0);
+  const [paginatedCities, setPaginatedCities] = useState<City[]>([]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -23,12 +25,22 @@ const Search = () => {
   }, []);
 
   useEffect(() => {
-    if (searchParams.has("address")) getCities();
+    if (searchParams.has("address")) {
+      getCities();
+    } else {
+      setCities([]);
+    }
+    setPage(1);
   }, [searchParams]);
 
   useEffect(() => {
     setNumPages(Math.ceil(cities.length / CITIES_PER_PAGE));
+    paginateCities();
   }, [cities]);
+
+  useEffect(() => {
+    paginateCities();
+  }, [page]);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -48,35 +60,65 @@ const Search = () => {
     }
   };
 
+  const changePage = (direction: "FORWARD" | "BACK") => {
+    if (direction === "FORWARD") setPage(page + 1);
+    if (direction === "BACK") setPage(page - 1);
+  };
+
+  const paginateCities = () => {
+    const startingIndex = (page - 1) * CITIES_PER_PAGE;
+    setPaginatedCities(
+      cities.slice(startingIndex, startingIndex + CITIES_PER_PAGE)
+    );
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.currentTarget.value);
     setSearchParams(formatSearchParams(e.currentTarget.value));
   };
 
   return (
-    <div className="w-full bg-slate-50 h-full absolute top-0 z-0 flex flex-col gap-2 justify-center items-center">
-      <h2>Find Cities</h2>
-      <p>
-        Instantly find cities all over the US. Start typing to see them appear.
-      </p>
-      <div
-        role="search"
-        aria-label="search term"
-        className="flex flex-col justify-between border-2 py-4 px-2"
-      >
-        <label htmlFor="search"></label>
-        <input
-          type="text"
-          placeholder="Madison, WI"
-          className="input input-bordered"
-          onChange={handleChange}
-          value={searchInput}
-          ref={inputRef}
-          id="search"
-          name="search"
-        />
+    <div className="w-full h-[calc(100vh-4rem)] flex flex-col gap-8 items-center px-8 py-6">
+      <div className="text-center">
+        <h2 className="text-xl font-bold mb-2">Find Cities</h2>
+        <p className="font-light">
+          Instantly find cities all over the US. Start typing to see them
+          appear.
+        </p>
       </div>
-      {loading ? "loading..." : <Results cities={cities} />}
+      <div role="search" aria-label="search term">
+        <label className="input input-bordered input-primary rounded-lg flex items-center gap-2 font-light focus-within:border-none">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            className="h-4 w-4 opacity-70"
+          >
+            <path
+              fillRule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <input
+            type="text"
+            placeholder="Madison, WI"
+            onChange={handleChange}
+            value={searchInput}
+            ref={inputRef}
+            id="search"
+            name="search"
+          />
+        </label>
+      </div>
+      {loading ? (
+        <span className="loading loading-dots loading-lg fixed h-full"></span>
+      ) : (
+        <>
+          <Results cities={paginatedCities} />
+          <PageSelect page={page} numPages={numPages} changePage={changePage} />
+        </>
+      )}
     </div>
   );
 };
