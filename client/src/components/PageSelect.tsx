@@ -8,7 +8,7 @@ const PageSelect = ({
   changePage: (direction: "FORWARD" | "BACK") => void;
 }) => {
   return (
-    <div className="join">
+    <div className="join rounded-md">
       <button
         className="join-item btn"
         onClick={() => changePage("BACK")}
@@ -17,11 +17,13 @@ const PageSelect = ({
       >
         «
       </button>
-      <div className="join-item btn">{page}</div>
+      <div className="join-item btn hover:border-inherit hover:bg-base-200">
+        {page}
+      </div>
       <button
         className="join-item btn"
         onClick={() => changePage("FORWARD")}
-        disabled={page === numPages}
+        disabled={numPages ? page === numPages : true}
         data-testid="pagination_forward_button"
       >
         »
