@@ -3,8 +3,10 @@ import { City } from "./types";
 const BASE_URL = "http://localhost:3000";
 
 export default class CitySearch {
-  static async getCities(): Promise<City[]> {
-    const resp = await fetch(`${BASE_URL}/cities`);
+  static async getCities(params: URLSearchParams): Promise<City[]> {
+    const url = new URL(`${BASE_URL}/cities`);
+    url.search = params.toString();
+    const resp = await fetch(url);
 
     if (!resp.ok) {
       console.error(`API ERROR: ${resp.status}`);

@@ -1,6 +1,6 @@
-import { City } from "../types.js";
+import { iCity } from "../types.js";
 
-const getAllCities = async (): Promise<City[]> => {
+const getAllCities = async (): Promise<iCity[]> => {
   const resp = await fetch("https://engineering.rentable.co/us_cities.json");
 
   if (!resp.ok) {

@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import { allCities } from "./server.js";
+import City from "./models/city.js";
 import cors from "cors";
 
 const app: Application = express();
@@ -14,10 +15,18 @@ app.get("/", (req, res) => {
   return res.status(200).json(data);
 });
 
-app.get("/cities", (req, res) => {
-  const { city, state } = req.query;
+app.get("/cities", async (req, res) => {
+  const { address } = req.query;
 
-  return res.json(allCities);
+  if (!address) {
+    return res.json(await City.getAll());
+  }
+
+  if (typeof address !== "string") {
+    throw new Error("error");
+  }
+
+  return res.json(await City.search(address));
 });
 
 export default app;

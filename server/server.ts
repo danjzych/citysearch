@@ -1,8 +1,8 @@
 import app from "./app.js";
 import getAllCities from "./utils/getAllCities.js";
-import { City } from "./types.js";
+import { iCity } from "./types.js";
 
-export const allCities: City[] = [];
+export const allCities: iCity[] = [];
 
 const startServer = async () => {
   try {
