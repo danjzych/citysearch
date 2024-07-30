@@ -30,6 +30,15 @@ const mockCityData = [
     state_abrv: "AL",
     url: "https://www.rentable.co/",
   },
+  {
+    id: 122,
+    name: "Bridgeport",
+    lat: "41.16",
+    lng: "-73.2",
+    state_name: "Connecticut",
+    state_abrv: "CT",
+    url: "https://www.rentable.co/bridgeport-ct",
+  },
 ];
 const mockResponseData = {
   ok: true,
@@ -92,6 +101,11 @@ describe("City", () => {
 
       expect(City.addressMatch("madison, wisc", mockCityData[1])).toBeFalsy();
       expect(City.addressMatch("madison, wisc", mockCityData[2])).toBeFalsy();
+    });
+
+    it("matches on state abreviation as well as full string", () => {
+      expect(City.addressMatch("ct", mockCityData[3])).toBeTruthy();
+      expect(City.addressMatch("bridgeport, ct", mockCityData[3])).toBeTruthy();
     });
   });
 });

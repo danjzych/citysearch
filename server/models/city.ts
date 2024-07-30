@@ -29,12 +29,18 @@ export default class City {
    */
   static addressMatch(searched: string, comparison: iCity): boolean {
     const [searchedCity, searchedState] = searched.split(",");
-    const { name: comparisonCity, state_name: comparisonState } = comparison;
+    const {
+      name: comparisonCity,
+      state_name: comparisonState,
+      state_abrv: comparisonAbrv,
+    } = comparison;
 
     return !searchedState
       ? comparisonCity.toLowerCase().includes(searchedCity) ||
-          comparisonState.toLowerCase().includes(searchedCity)
+          comparisonState.toLowerCase().includes(searchedCity) ||
+          comparisonAbrv.toLocaleLowerCase().includes(searchedCity)
       : comparisonCity.toLowerCase().includes(searchedCity) &&
-          comparisonState.toLowerCase().includes(searchedState.trim());
+          (comparisonState.toLowerCase().includes(searchedState.trim()) ||
+            comparisonAbrv.toLocaleLowerCase().includes(searchedState.trim()));
   }
 }
