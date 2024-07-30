@@ -21,20 +21,20 @@ export default class City {
   static async search(address: string): Promise<iCity[]> {
     const allCities = await this.getAll();
 
-    return allCities.filter((c) => this.simpleAddressMatch(address, c), this);
+    return allCities.filter((c) => this.addressMatch(address, c), this);
   }
 
   /**
    * Compares two addresses and returns a match on city and/or state.
    */
-  static simpleAddressMatch(searched: string, comparison: iCity): boolean {
+  static addressMatch(searched: string, comparison: iCity): boolean {
     const [searchedCity, searchedState] = searched.split(",");
     const { name: comparisonCity, state_name: comparisonState } = comparison;
 
     return !searchedState
       ? comparisonCity.toLowerCase().includes(searchedCity) ||
           comparisonState.toLowerCase().includes(searchedCity)
-      : comparisonCity.toLowerCase().includes(searchedCity) ||
-          comparisonState.toLowerCase().includes(searchedCity);
+      : comparisonCity.toLowerCase().includes(searchedCity) &&
+          comparisonState.toLowerCase().includes(searchedState.trim());
   }
 }

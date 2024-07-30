@@ -7,7 +7,9 @@
   "scripts": {
     "dev:client": "cd ./client && npm run dev -- --open",
     "dev:server": "cd ./server && npm run dev",
-    "test:client": "cd ./client && npm run test"
+    "test": "npm run test:client && npm run test:server",
+    "test:client": "cd ./client && npm run test",
+    "test:server": "cd ./server && npm run test"
   },
   "workspaces": [
     "client",
