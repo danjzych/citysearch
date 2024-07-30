@@ -13,6 +13,7 @@ const PageSelect = ({
         className="join-item btn"
         onClick={() => changePage("BACK")}
         disabled={page === 1}
+        data-testid="pagination_back_button"
       >
         «
       </button>
@@ -21,6 +22,7 @@ const PageSelect = ({
         className="join-item btn"
         onClick={() => changePage("FORWARD")}
         disabled={page === numPages}
+        data-testid="pagination_forward_button"
       >
         »
       </button>

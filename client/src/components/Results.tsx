@@ -3,7 +3,7 @@ import { City } from "../types";
 
 const Results = ({ cities }: { cities: City[] }) => {
   return (
-    <div className="grow border w-3/4 rounded-lg border-primary">
+    <div className="grow border w-3/4 rounded-lg border-primary flex justify-center items-center">
       {cities.length ? (
         <ul className="h-full w-full flex flex-col">
           {cities.map((c) => {
