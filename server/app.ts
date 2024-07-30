@@ -1,5 +1,4 @@
 import express, { Application } from "express";
-import { allCities } from "./server.js";
 import City from "./models/city.js";
 import cors from "cors";
 
