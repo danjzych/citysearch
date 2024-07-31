@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import paginate from "./paginate";
+import paginate from "../utils/paginate";
 
 const mockData = [
   "a",
