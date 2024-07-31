@@ -5,6 +5,7 @@ import PageSelect from "./PageSelect";
 import CitySearch from "../api";
 import useDebounceValue from "../hooks/useDebounceValue";
 import formatSearchParams from "../utils/formatSearchParams";
+import paginate from "../utils/paginate";
 import { City } from "../types";
 
 const CITIES_PER_PAGE = 10;
@@ -25,6 +26,10 @@ const Search = () => {
   useEffect(() => {
     const query = searchParams.get("address");
     if (query) setSearchInput(query);
+
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }, []);
 
   useEffect(() => {
@@ -49,12 +54,6 @@ const Search = () => {
     paginateCities();
   }, [page]);
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
-
   const getCities = async () => {
     try {
       setLoading(true);
@@ -73,10 +72,7 @@ const Search = () => {
   };
 
   const paginateCities = () => {
-    const startingIndex = (page - 1) * CITIES_PER_PAGE;
-    setPaginatedCities(
-      cities.slice(startingIndex, startingIndex + CITIES_PER_PAGE)
-    );
+    setPaginatedCities(paginate(cities, page, CITIES_PER_PAGE));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
