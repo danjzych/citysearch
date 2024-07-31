@@ -36,11 +36,13 @@ export default class City {
     } = comparison;
 
     return !searchedState
-      ? comparisonCity.toLowerCase().includes(searchedCity) ||
-          comparisonState.toLowerCase().includes(searchedCity) ||
-          comparisonAbrv.toLocaleLowerCase().includes(searchedCity)
-      : comparisonCity.toLowerCase().includes(searchedCity) &&
-          (comparisonState.toLowerCase().includes(searchedState.trim()) ||
-            comparisonAbrv.toLocaleLowerCase().includes(searchedState.trim()));
+      ? comparisonCity.toLowerCase().startsWith(searchedCity) ||
+          comparisonState.toLowerCase().startsWith(searchedCity) ||
+          comparisonAbrv.toLocaleLowerCase().startsWith(searchedCity)
+      : comparisonCity.toLowerCase() === searchedCity &&
+          (comparisonState.toLowerCase().startsWith(searchedState.trim()) ||
+            comparisonAbrv
+              .toLocaleLowerCase()
+              .startsWith(searchedState.trim()));
   }
 }
