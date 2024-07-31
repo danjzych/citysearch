@@ -3,9 +3,9 @@ import { useSearchParams } from "react-router-dom";
 import Results from "./Results";
 import PageSelect from "./PageSelect";
 import CitySearch from "../api";
+import useDebounceValue from "../hooks/useDebounceValue";
 import formatSearchParams from "../utils/formatSearchParams";
 import { City } from "../types";
-import useDebounceValue from "../hooks/useDebounceValue";
 
 const CITIES_PER_PAGE = 10;
 
