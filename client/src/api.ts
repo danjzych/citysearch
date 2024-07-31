@@ -1,6 +1,6 @@
 import { City } from "./types";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:8671";
 
 export default class CitySearch {
   static async getCities(params: URLSearchParams): Promise<City[]> {
