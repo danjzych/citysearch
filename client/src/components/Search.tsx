@@ -1,17 +1,18 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Results from "./Results";
 import PageSelect from "./PageSelect";
 import CitySearch from "../api";
 import formatSearchParams from "../utils/formatSearchParams";
-import { debounce } from "lodash";
 import { City } from "../types";
+import useDebounceValue from "../hooks/useDebounceValue";
 
 const CITIES_PER_PAGE = 10;
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+  const debouncedSearchTerm = useDebounceValue(searchInput, 300);
   const [loading, setLoading] = useState(false);
   const [cities, setCities] = useState<City[]>([]);
 
@@ -20,13 +21,6 @@ const Search = () => {
   const [paginatedCities, setPaginatedCities] = useState<City[]>([]);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const debouncedSetSearchParams = useMemo(
-    () =>
-      debounce(() => {
-        setSearchParams(formatSearchParams(searchInput));
-      }, 300),
-    [searchInput]
-  );
 
   useEffect(() => {
     const query = searchParams.get("address");
@@ -41,6 +35,10 @@ const Search = () => {
     }
     setPage(1);
   }, [searchParams]);
+
+  useEffect(() => {
+    setSearchParams(formatSearchParams(debouncedSearchTerm));
+  }, [debouncedSearchTerm]);
 
   useEffect(() => {
     setNumPages(Math.ceil(cities.length / CITIES_PER_PAGE));
@@ -83,7 +81,6 @@ const Search = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.currentTarget.value);
-    debouncedSetSearchParams();
   };
 
   return (
