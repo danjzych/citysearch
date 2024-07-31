@@ -61,7 +61,7 @@ describe("City", () => {
 
       await City.getAll();
       expect(fetchSpy).toHaveBeenCalledWith(
-        "https://engineering.rentable.co/us_cities.json"
+        "https://engineering.rentable.co/us_cities.json",
       );
     });
 
@@ -76,7 +76,7 @@ describe("City", () => {
       globalThis.fetch = vi.fn().mockResolvedValueOnce(mockFailedResponseData);
 
       await expect(async () => await City.getAll()).rejects.toThrowError(
-        "Unable to get cities from engineering.rentable.co"
+        "Unable to get cities from engineering.rentable.co",
       );
     });
   });

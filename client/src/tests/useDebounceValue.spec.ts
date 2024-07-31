@@ -14,7 +14,7 @@ describe("useDebounceValue", () => {
     const initialProps = { value: "banana", delay: 300 };
     const { result, rerender } = renderHook(
       ({ value, delay }) => useDebounceValue(value, delay),
-      { initialProps }
+      { initialProps },
     );
     expect(result.current).toBe("banana");
 

@@ -24,7 +24,7 @@ describe("CitySearch API", () => {
     globalThis.fetch = vi.fn().mockResolvedValueOnce(mockFailedResponseData);
     const searchParams = new URLSearchParams();
     expect(
-      async () => await CitySearch.getCities(searchParams)
+      async () => await CitySearch.getCities(searchParams),
     ).rejects.toThrowError();
   });
 });

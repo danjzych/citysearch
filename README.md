@@ -37,8 +37,6 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]]
-
 An app for searching for cities. For Rentable FE Software Engineer coding exercise. Users can begin typing the city they want to find, and the application will return matches and/or near meatches, depending on the query. Users can then view any of the results on <a href="https://www.rentable.co" target="_blank">Rentable</a>.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -88,10 +86,16 @@ This application requires Node.js version <code>18.18.0</code> or later. If you 
    npm install
    ```
 
-3. Launch
+3. Launch production build:
 
    ```sh
-   npm run dev -- --open
+   npm run start
+   ```
+
+   or run in dev: mode
+
+   ```sh
+   npm run dev
    ```
 
 ### Running Tests
@@ -126,7 +130,6 @@ This project was in part built with themes and components (i.e., buttons) from:
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[product-screenshot]: static/homepage-screenshot.png
 [React]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://react.dev/
 [Typescript-lang]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white

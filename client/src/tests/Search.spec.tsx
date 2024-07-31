@@ -40,7 +40,7 @@ describe("Search", () => {
     render(
       <MemoryRouter initialEntries={["?address=madison"]}>
         <Search />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(screen.getByDisplayValue("madison")).toBeInTheDocument();
   });
@@ -54,7 +54,7 @@ describe("Search", () => {
     act(() => vi.advanceTimersByTime(301));
 
     expect(mockGetCities).toHaveBeenCalledWith(
-      new URLSearchParams({ address: "madison" })
+      new URLSearchParams({ address: "madison" }),
     );
   });
 

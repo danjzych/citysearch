@@ -43,7 +43,7 @@ app.use(
     return res.status(status).json({
       error: { message, status },
     });
-  }
+  },
 );
 
 export default app;

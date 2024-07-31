@@ -5,6 +5,10 @@
   "main": "index.js",
   "private": true,
   "scripts": {
+    "start": "npm run start:server & npm run start:client",
+    "start:client": "cd ./client && npm run preview -- --open",
+    "start:server": "cd ./server && npm run start",
+    "dev": "npm run dev:client & npm run dev:server",
     "dev:client": "cd ./client && npm run dev -- --open",
     "dev:server": "cd ./server && npm run dev",
     "test:all": "npm run test:client && npm run test:server",
@@ -19,7 +23,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "npm-run-all": "^4.1.5",
     "vitest": "^2.0.4"
   },
   "engines": {
