@@ -35,7 +35,7 @@ const Search = () => {
   useEffect(() => {
     if (searchParams.has("address")) {
       getCities();
-    } else {
+    } else if (cities.length) {
       setCities([]);
     }
     setPage(1);
