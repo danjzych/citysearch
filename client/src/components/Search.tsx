@@ -33,6 +33,10 @@ const Search = () => {
   }, []);
 
   useEffect(() => {
+    setSearchParams(formatSearchParams(debouncedSearchTerm));
+  }, [debouncedSearchTerm]);
+
+  useEffect(() => {
     if (searchParams.has("address")) {
       getCities();
     } else if (cities.length) {
@@ -40,10 +44,6 @@ const Search = () => {
     }
     setPage(1);
   }, [searchParams]);
-
-  useEffect(() => {
-    setSearchParams(formatSearchParams(debouncedSearchTerm));
-  }, [debouncedSearchTerm]);
 
   useEffect(() => {
     setNumPages(Math.ceil(cities.length / CITIES_PER_PAGE));

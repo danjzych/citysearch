@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm run start:server & npm run start:client",
     "start:client": "cd ./client && npm run preview -- --open",
-    "start:server": "cd ./server && npm run start",
+    "start:server": "cd ./server && npm run build && npm run start",
     "dev": "npm run dev:client & npm run dev:server",
     "dev:client": "cd ./client && npm run dev -- --open",
     "dev:server": "cd ./server && npm run dev",
