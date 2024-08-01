@@ -49,7 +49,7 @@ On the search cities page, you can do exactly that. It has the following feature
 
 - live (debounced) search
 - Flexible matching on city and state
-  - City and state are provided, matches will be return based on partial match for city and state. If only one string (no comma) is provided, it will return partial matches on city of state
+  - If city and state are provided, matches will be return based on match for city and state. If only one string (no comma) is provided, it will return partial matches on city of state
 - pagination of search results
 - search persists as query string, allowing for search to persist on reload and be available for link sharing
 - links to rentable.co
