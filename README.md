@@ -73,20 +73,21 @@ To get a local version of CitySearch up and running, do the following.
 
 ### Installation and Setup
 
-This application requires Node.js version <code>18.18.0</code> or later. If you do not have node, or this version of node, you need will need to use it. The easiest way to do with is to use <code>nvm</code> - node version manager.
-
 1. Clone the repo
 
    ```sh
    git clone https://github.com/danjzych/citysearch.git
    ```
 
-2. cd into city search and use node version 18.18.0 if you are not already using ^18.18.0
+2. cd into city search and use correct node version.
+
+   This application requires node version <code>18.18.0</code> or higher. You can ensure you are using this using node version manager.
 
    ```sh
     cd ./citysearch
-    nvm install 18.8.0
-    nvm use 18.8.0
+    nvm install
+    nvm use
+    Now using node v18.18.0
    ```
 
 3. cd into your citysearch directory and install project dependencies
