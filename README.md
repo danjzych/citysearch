@@ -90,10 +90,9 @@ To get a local version of CitySearch up and running, do the following.
     Now using node v18.18.0
    ```
 
-3. cd into your citysearch directory and install project dependencies
+3. install project dependencies
 
    ```sh
-   cd ./citysearch
    npm install
    ```
 
