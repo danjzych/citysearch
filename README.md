@@ -102,7 +102,7 @@ To get a local version of CitySearch up and running, do the following.
    npm run start
    ```
 
-   or run in dev: mode
+   or run in dev mode:
 
    ```sh
    npm run dev
