@@ -109,6 +109,8 @@ To get a local version of CitySearch up and running, do the following.
    npm run dev
    ```
 
+   Both commands will automatically open the application in your default browser.
+
 ### Running Tests
 
 1. To run tests, enter the following into the command line:
